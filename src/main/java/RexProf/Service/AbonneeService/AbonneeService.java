@@ -1,14 +1,17 @@
 package RexProf.Service.AbonneeService;
 
 import RexProf.Entity.Abonnee;
+import RexProf.Entity.Notification;
 import RexProf.Entity.Users;
 import RexProf.Repository.AbonneeRepository;
 
+import RexProf.Repository.NotificationRepository;
 import RexProf.Repository.UsersRepository;
 import RexProf.modelDto.abonneeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +20,8 @@ public class AbonneeService implements IAbonneeService{
     AbonneeRepository abonneeRepository;
 @Autowired
 UsersRepository usersRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
 //get count  abonnements
     @Override
     public int countAbonnements(long id_abonnee) {
@@ -40,10 +45,18 @@ UsersRepository usersRepository;
     @Override
     public void addAbonnee(abonneeDto ab) {
         Abonnee abonnee=new Abonnee();
+        Notification notification=new Notification();
         abonnee.setUsers1(usersRepository.findById(ab.getId_prestataire()).get());
         abonnee.setUsers2(usersRepository.findById(ab.getId_abonnee()).get());
+        notification.setMessage("vous abonnez");
         abonnee.setEtat(true);
+        notification.setRead(false);
+        notification.setCreatedAt(new Date());
+        notification.setUser(usersRepository.findById(ab.getId_prestataire()).get());
+        notification.setUserAbonne(usersRepository.findById(ab.getId_abonnee()).get());
         abonneeRepository.save(abonnee);
+        notificationRepository.save(notification);
+
     }
 // get etat abonnement
     @Override
@@ -68,5 +81,10 @@ UsersRepository usersRepository;
         return abonneeRepository.getAllAbonnes(id_prestataire);
     }
 
+    @Override
+    public void deleteAbonnee ( Long id_abonnee,long id_prestataire) {
+        abonneeRepository.deleteAbonnee(id_abonnee,id_prestataire);
+
+    }
 
 }

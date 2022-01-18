@@ -86,10 +86,17 @@ public class AbonneeController {
     public void deleteAbonnee(@RequestParam("id") long id) {
         abonneeRepository.deleteById(id);
     }*/
-    @DeleteMapping("/desabonner/{id}")
+   /* @DeleteMapping("/desabonner/{id}")
     void deleteAbonnnee(@PathVariable("id") Long id) {
         abonneeRepository.deleteById(id);
+    }*/
+    @RequestMapping(value = "/desabonner", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseBody
+    public void deleteGroup(@RequestParam("id_abonnee") Long id_abonnee,
+                            @RequestParam ("id_prestataire") Long id_prestataire) {
+        abonneeService.deleteAbonnee(id_abonnee,id_prestataire);
     }
+
 
     /*@RequestMapping(value = "/desabonner", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
