@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 @Getter
@@ -14,13 +15,15 @@ public class Companies implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String current_domination;
+
+    @NotNull
+    private String societe_nom;
     private String address;
-    private String function;
+    private String fonction;
     private String responsable;
     private String naf_code;
     private String siret;
-    private String siren;
+
     private String social_reason;
     private int fax_num;
     private int phone_num;

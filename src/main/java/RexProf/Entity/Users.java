@@ -9,7 +9,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,15 +30,25 @@ public class Users implements UserDetails {
     private Long id;
     @Transient
     private String token;
+    @NotNull
     private String name_user;
+    @NotNull
     private String first_name;
+@Email
     private String email;
+    @NotNull
     private String title;
     private String login;
+    @NotNull(message="Password is a required field")
+    @Size(min=7, max=16
+            , message="Password must be equal to or greater than 7 characters and less than 16 characters")
     private String pwd;
     private String gender;
+    @NotNull
     private int age;
+    @NotNull
     private String pays;
+    @NotNull
     private String phone;
     private Date date_birth;
     private String description;

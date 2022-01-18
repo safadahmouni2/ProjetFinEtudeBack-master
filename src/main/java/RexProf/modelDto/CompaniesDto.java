@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Companies {
+public class CompaniesDto {
     private Long id_companies;
     private String current_domination;
     private String address;
